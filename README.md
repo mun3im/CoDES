@@ -20,7 +20,7 @@ Every chapter opens with a motivation, measurable learning outcomes and a guidin
 
 ## About the slides
 
-The `Slides/` folder holds one Beamer deck per chapter for Chapters 1 to 15 (`codes01` to `codes15`). Chapter 16 (Verilog) has no deck yet.
+The `Slides/` folder holds one Beamer deck per chapter for all sixteen chapters (`codes01` to `codes16`).
 
 Each deck follows the same pattern:
 
@@ -29,7 +29,7 @@ Each deck follows the same pattern:
 3. **Content sections** that follow the chapter, reusing the book's worked examples and figures.
 4. **Summary** and a pointer to the next chapter.
 
-A table-of-contents slide marks the start of each section. Exercises are not included.
+A table-of-contents slide marks the start of each section. Exercises are not included. The Chapter 16 deck shows the Verilog examples as syntax-colored listings.
 
 | Deck | Chapter | Pages |
 |---|---|---|
@@ -48,6 +48,7 @@ A table-of-contents slide marks the start of each section. Exercises are not inc
 | `codes13` | Finite State Machines | 32 |
 | `codes14` | FSM Analysis | 21 |
 | `codes15` | FSM Controllers | 34 |
+| `codes16` | First Steps in Verilog | 32 |
 
 The slides use the Flux Beamer theme (hunter-green variant) at 16:9, Roboto font, with the UTM logo.
 
@@ -55,8 +56,8 @@ The slides use the Flux Beamer theme (hunter-green variant) at 16:9, Roboto font
 
 ```
 Slides/
-  codes01.tex ... codes15.tex   slide sources
-  codes01.pdf ... codes15.pdf   compiled slides
+  codes01.tex ... codes16.tex   slide sources
+  codes01.pdf ... codes16.pdf   compiled slides
   styles/                       Flux theme files (hunter-green style added)
   assets/                       UTM logo
 fig/                            figures used by the slides
@@ -72,7 +73,7 @@ pdflatex codes01
 pdflatex codes01
 ```
 
-You need a TeX distribution with the `beamer`, `roboto`, `tikz`, `listings`, `booktabs`, `makecell` and `colortbl` packages. Figures are read from `../fig/` through `\graphicspath`.
+You need a TeX distribution with the `beamer`, `roboto`, `tikz`, `listings` (with its Verilog language definition), `booktabs`, `makecell` and `colortbl` packages. Figures are read from `../fig/` through `\graphicspath`.
 
 ## License
 
