@@ -144,6 +144,19 @@
 
 \newcommand{\rulefig}[3]{\par\vspace{1mm}{\small\textbf{#1}\ #2}\par\vspace{.5mm}\centerline{\includegraphics[width=.62\textwidth]{#3}}}
 
+
+% 4-variable K-map: \kmapfour{16 entries, row-major, rows AB=00,01,11,10; columns CD=00,01,11,10}
+\newcommand{\kmapfour}[1]{%
+  \begin{tikzpicture}[x=.75cm,y=.75cm,font=\sffamily\small]
+    \foreach \c [count=\i from 0] in {00,01,11,10} \node at (\i+.5,.4) {\scriptsize\c};
+    \foreach \r [count=\i from 0] in {00,01,11,10} \node at (-.5,-\i-.5) {\scriptsize\r};
+    \node at (-.5,.4) {\scriptsize $AB\backslash CD$};
+    \draw (0,0) grid (4,-4);
+    \foreach \v [count=\k from 0] in {#1} {%
+      \pgfmathtruncatemacro{\rr}{int(\k/4)}\pgfmathtruncatemacro{\cc}{mod(\k,4)}%
+      \node at (\cc+.5,-\rr-.5) {\v};}
+  \end{tikzpicture}}
+
 \begin{document}
 
 \titlepage
@@ -193,6 +206,7 @@
     \item An $n$-variable map has $2^n$ cells.
     \item Best for small problems (up to four variables); impractical beyond that.
     \item Simpler expressions mean a simpler circuit, with more reliability and speed and lower cost.
+    \item Two adjacent 1s always group: they differ in one variable $x$, and $x\cdot t + \overline{x}\cdot t = t$ by the unifying theorem, so $x$ drops out.
   \end{itemize}
   \centering
   \includegraphics[height=.22\textheight]{kmap2vtype1}\hspace{8mm}
@@ -306,22 +320,22 @@
 %===============================================================================
 
 \begin{frame}{Rules 1 and 2}
-  \rulefig{Rule 1: No zeros allowed.}{A group may not contain a cell with 0.}{kmap_error1}
-  \rulefig{Rule 2: No diagonals.}{Groups are horizontal or vertical, never diagonal.}{kmap_error2}
+  \rulefig{Rule 1: No zeros allowed.}{A group may not contain a cell with 0: it would assert an output the truth table says is 0.}{kmap_error1}
+  \rulefig{Rule 2: No diagonals.}{Adjacent cells differ in one variable, so it cancels; diagonal cells differ in two, so nothing cancels.}{kmap_error2}
 \end{frame}
 
 \begin{frame}{Rule 3: Only Powers of 2}
-  \rulefig{Rule 3.}{Group sizes must be 1, 2, 4, 8, or in general $2^n$.}{kmap_error3}
+  \rulefig{Rule 3.}{A group of $2^k$ cells drops exactly $k$ variables, so sizes must be 1, 2, 4, 8, \ldots}{kmap_error3}
   \rulefig{}{A group of 3 or 6 cells is not allowed.}{kmap_error4}
 \end{frame}
 
 \begin{frame}{Rules 4 and 5}
   \rulefig{Rule 4: Each group as large as possible.}{A smaller group is still correct but \emph{not minimal}.}{kmap_error5}
-  \rulefig{Rule 5: Every 1 must be in at least one group.}{}{kmap_error6}
+  \rulefig{Rule 5: Every 1 must be in at least one group.}{An uncovered 1 would give output 0 for that input.}{kmap_error6}
 \end{frame}
 
 \begin{frame}{Rules 6 and 7}
-  \rulefig{Rule 6: Groups may overlap.}{}{kmap_error7}
+  \rulefig{Rule 6: Groups may overlap.}{Covering a cell twice is harmless ($A + A = A$) and often lets groups grow larger.}{kmap_error7}
   \rulefig{Rule 7: Groups may wrap around.}{Left edge with right edge; top with bottom.}{kmap_error8}
 \end{frame}
 
@@ -395,6 +409,27 @@
   \end{columns}
 \end{frame}
 
+\begin{frame}{Example: Wraparound at the Corners}
+  \begin{columns}[c]
+  \begin{column}{.42\textwidth}
+    \centering
+    \kmapfour{1,0,0,1, 0,0,0,0, 0,0,0,0, 1,0,0,1}\\[1mm]
+    {\small $F = \sum m(0,2,8,10)$}
+  \end{column}
+  \begin{column}{.56\textwidth}
+    \begin{itemize}\small\itemsep3pt
+      \item Rule 7: left and right columns are adjacent, as are top and bottom rows.
+      \item The four corners touch and form \alert{one} group of four.
+      \item $B = 0$ and $D = 0$ in all four cells; $A$ and $C$ take both values and cancel.
+    \end{itemize}
+    \begin{block}{Result}
+      $F = \overline{B}\,\overline{D}$
+    \end{block}
+    \small Without wraparound: four isolated 1s and four four-literal terms.
+  \end{column}
+  \end{columns}
+\end{frame}
+
 %===============================================================================
 \section{Don't Cares and POS}
 %===============================================================================
@@ -410,6 +445,27 @@
   \end{block}
   \centering
   \includegraphics[height=.17\textheight]{kmap_dontcare}
+\end{frame}
+
+\begin{frame}{Example: Using Don't Cares}
+  \begin{columns}[c]
+  \begin{column}{.42\textwidth}
+    \centering
+    \kmapfour{0,1,1,0, 0,$\times$,1,0, 0,$\times$,1,0, 0,$\times$,1,0}\\[1mm]
+    {\small $F = \sum m(1,3,7,11,15) + \sum d(5,9,13)$}
+  \end{column}
+  \begin{column}{.56\textwidth}
+    \begin{itemize}\small\itemsep3pt
+      \item 1s only: $F = CD + \overline{A}\,\overline{B}D$ (6 literals).
+      \item Treat the don't cares as 1s: cells 1, 3, 5, 7, 9, 11, 13, 15 are exactly the eight cells with $D = 1$.
+      \item One group of eight drops three variables.
+    \end{itemize}
+    \begin{block}{Result}
+      $F = D$
+    \end{block}
+    \small A don't care that does not enlarge a group is left as 0.
+  \end{column}
+  \end{columns}
 \end{frame}
 
 \begin{frame}{K-Maps for Maxterms (POS)}

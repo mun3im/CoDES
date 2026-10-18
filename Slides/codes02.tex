@@ -532,6 +532,39 @@
   \end{columns}
 \end{frame}
 
+\begin{frame}{Fractions in Octal and Hexadecimal}
+  \begin{columns}[t]
+  \begin{column}{.5\textwidth}
+    \begin{block}{$0.65625_{10}$ to octal: multiply by 8}
+      \small
+      \begin{tabular}{rcrcl}
+        0.65625 & $\times 8$ & 5.25 & keep & 5 (MSD) \\
+        0.25 & $\times 8$ & 2.0 & keep & 2 (LSD) \\
+      \end{tabular}\\[1mm]
+      $0.65625_{10} = 0.52_8$ (exact: $0.625 + 0.03125$)
+    \end{block}
+    \begin{block}{$24.36_8$ to decimal}
+      \small $2\!\times\!8 + 4 + 3\!\times\!8^{-1} + 6\!\times\!8^{-2}$\\
+      $= 16 + 4 + 0.375 + 0.09375 = 20.46875_{10}$
+    \end{block}
+  \end{column}
+  \begin{column}{.48\textwidth}
+    \begin{block}{$1011.11011_2$ to hex}
+      \small Group outwards from the binary point; pad the fraction on the \alert{right}:\\[1mm]
+      \centering
+      \begin{tabular}{ccc}
+        1011 & 1101 & 1000 \\
+        B & D & 8 \\
+      \end{tabular}\\[1mm]
+      $= \mathrm{B.D8}_{16}$
+    \end{block}
+    \begin{itemize}\small
+      \item Most decimal fractions never terminate: stop after the digits needed.
+    \end{itemize}
+  \end{column}
+  \end{columns}
+\end{frame}
+
 \begin{frame}{Back to the Opening Question}
   \begin{block}{$1000_{10}$}
     \begin{itemize}
@@ -558,6 +591,7 @@
 %===============================================================================
 
 \begin{frame}{Decimal-Based Codes}
+  \relax{\small\textit{Reference material: these codes are outside the main syllabus, but the code converters of Chapters 7 and 8 use them.}\par\vspace{2mm}}
   \begin{columns}[c]
   \begin{column}{.45\textwidth}
     \centering\small\striped
@@ -697,6 +731,32 @@
       \bottomrule
     \end{tabular}\\[1mm]
     {\scriptsize The unused MSB of each byte carries the parity bit.}
+  \end{column}
+  \end{columns}
+\end{frame}
+
+\begin{frame}{Parity Example: ASCII \texttt{K}}
+  \begin{columns}[t]
+  \begin{column}{.45\textwidth}
+    \begin{itemize}\small\itemsep3pt
+      \item \texttt{K} $= 1001011_2$ has four 1s: already even.
+      \item Parity bit $= 0$; transmit \texttt{0 1001011}.
+      \item One flipped bit: odd count, error \alert{detected}.
+      \item Two flipped bits: even count, error \alert{missed}.
+      \item Parity says \emph{that} something failed, not \emph{which} bit, so it cannot correct.
+    \end{itemize}
+  \end{column}
+  \begin{column}{.53\textwidth}
+    \centering\scriptsize\striped
+    \begin{tabular}{@{}llcl@{}}
+      \toprule
+      \textbf{Case} & \textbf{Received} & \textbf{1s} & \textbf{Decision} \\
+      \midrule
+      No error & \texttt{0 1001011} & 4 & Accept \\
+      One bit flipped & \texttt{0 1011011} & 5 & Reject \\
+      Two bits flipped & \texttt{0 1011111} & 6 & Accept (missed) \\
+      \bottomrule
+    \end{tabular}
   \end{column}
   \end{columns}
 \end{frame}

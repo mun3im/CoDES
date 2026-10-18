@@ -207,7 +207,7 @@
     \textbf{Hardware idea} & \textbf{Existing representation} & \textbf{Verilog} \\
     \midrule
     2-to-1 multiplexer & Truth table / equation / symbol & \texttt{assign y = s ? b : a;} \\
-    3-to-8 decoder & Truth table or case table & \texttt{always @(*)} with \texttt{case} \\
+    2-to-4 decoder & Truth table or case table & \texttt{always @(*)} with \texttt{case} \\
     Full adder & Equations for sum and carry & \texttt{assign} or gate primitives \\
     D flip-flop & Symbol / timing diagram & \texttt{always @(posedge clk)} \\
     $n$-bit register & Symbol / RTL block & \texttt{always @(posedge clk)}, \texttt{reg [n-1:0]} \\
@@ -562,7 +562,7 @@ endmodule
 \begin{frame}[fragile]{Hazards and Buffers}
   \begin{columns}[t]
   \begin{column}{.5\textwidth}
-    \small $Y = A\cdot B + \overline{A}\cdot C$ is functionally correct, but unequal gate delays can glitch $Y$ when $A$ changes (a \alert{static-1 hazard}).
+    \small $Y = A\cdot B + \overline{A}\cdot C$ is functionally correct, but unequal gate delays can glitch $Y$ when $A$ changes (a \alert{static-1 hazard}). The reliable fix is the \alert{consensus term}: $Y = AB + \overline{A}C + BC$ holds $Y$ high while the two terms swap roles.
 \begin{lstlisting}
 module hazard_demo (
   input A, B, C,
@@ -580,7 +580,7 @@ endmodule
     \includegraphics[height=.17\textheight]{verilog_hazard_prone_timing}
   \end{column}
   \begin{column}{.48\textwidth}
-    \small A \texttt{buf} delays $A$ in the first product term, balancing arrival times with $\overline{A}$:
+    \small A weaker approach: a \texttt{buf} delays $A$ in the first product term, balancing arrival times with $\overline{A}$:
 \begin{lstlisting}
 module hazard_free_demo (
   input A, B, C,
@@ -600,7 +600,7 @@ endmodule
   \end{column}
   \end{columns}
   \vspace{1mm}
-  {\footnotesize Delay balancing reduces the likelihood of a glitch. It is an illustration, not a guaranteed fix.}
+  {\footnotesize Delay balancing reduces the likelihood of a glitch. It is an illustration, not a dependable fix: the delay depends on the technology, and synthesis may remove the buffer.}
 \end{frame}
 
 %===============================================================================
@@ -792,6 +792,9 @@ endmodule
 \begin{frame}{Back to the Opening Question}
   \begin{block}{Why does ``C-like'' Verilog compile to gates?}
     \small Because Verilog describes \alert{structure and behaviour that exist concurrently}, not a sequence of instructions. \texttt{assign} makes combinational logic, \texttt{always @(*)} makes combinational logic from \texttt{if} or \texttt{case}, and \texttt{always @(posedge clk)} makes flip-flops. The synthesis tool turns those descriptions into gates and registers; there is no CPU to execute them.
+  \end{block}
+  \begin{block}{Which values are stored, and what updates them?}
+    \small What is stored is whatever is assigned in the \texttt{always} block and declared \texttt{reg}; the event is named in the sensitivity list. \texttt{always @(posedge clk)}: a rising edge, so a flip-flop. \texttt{always @(*)}: no event; it re-evaluates when any input changes. The latch examples infer latches deliberately, despite the warning in the Summary.
   \end{block}
 \end{frame}
 

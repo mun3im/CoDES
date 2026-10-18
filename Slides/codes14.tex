@@ -196,6 +196,7 @@
     \begin{itemize}\small\itemsep3pt
       \item Analysis is \alert{reverse engineering}: understand a system from its structure and operation.
       \item Needed when a legacy circuit must be rebuilt (parts discontinued, documentation lost), to understand undocumented designs, to estimate cost and find improvements, even to assess patent infringement.
+      \item Reverse engineering is limited by law and contract. Analysing a circuit to understand or repair it is generally defensible; copying a protected design is not.
     \end{itemize}
   \end{column}
   \begin{column}{.48\textwidth}
@@ -326,6 +327,7 @@
     \item A waveform can replace a state diagram for showing next state and output.
     \item The Moore output changes synchronously with the clock edge.
     \item The Mealy output can glitch: the asynchronous input $x$ changes it immediately, whatever the clock does.
+    \item These waveforms sample on the \alert{falling} edge; the rest of the book uses the rising edge. Edge sensitivity is fixed by the flip-flops, so check the schematic.
   \end{itemize}
 \end{frame}
 
@@ -385,7 +387,7 @@
 
 \begin{frame}{Back to the Opening Question}
   \begin{block}{Reconstructing the state diagram}
-    \small For a real chip you would probe the flip-flop outputs and the output pins while applying input patterns, and record, for each present state and input, the next state and output: you would be building the \alert{state table} directly. This chapter does the same on paper, with the equations read off the schematic, so the table can be filled in exhaustively.
+    \small For a real chip you would probe the flip-flop outputs and the output pins while applying input patterns, and record, for each present state and input, the next state and output: you would be building the \alert{state table} directly. This chapter does the same on paper, with the equations read off the schematic, so the table can be filled in exhaustively: the same procedure, driven by measurement instead of a schematic.
   \end{block}
 \end{frame}
 

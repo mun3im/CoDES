@@ -601,7 +601,8 @@
   \end{columns}
   \vspace{2mm}
   \begin{itemize}\small
-    \item Some input combinations never occur, or the output does not matter. These are \alert{don't cares}, written $\times$, $-$ or $.$
+    \item Block $P$ drives $A$, $B$, $C$ into block $Q$; $P$ never produces $ABC = 110$ or $111$, so those inputs of $Q$ cannot arise.
+    \item Such inputs, or ones whose output does not matter, are \alert{don't cares}, written $\times$, $-$ or $.$ They are don't cares because the input cannot occur, not because the output is unimportant.
     \item Assign them 0 or 1 freely to simplify the function and cut gates.
   \end{itemize}
 \end{frame}

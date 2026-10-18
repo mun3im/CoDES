@@ -142,6 +142,17 @@
 \graphicspath{{.}{../fig/}}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+\newcommand{\wave}[3]{%
+  \node[left] at (-0.1,#1+0.35) {#2};
+  \def\prev{-1}
+  \foreach \b [count=\i from 0] in {#3} {%
+    \ifnum\prev>-1
+      \ifnum\prev=\b\else \draw[thick] (\i,#1) -- (\i,#1+0.7); \fi
+    \fi
+    \draw[thick] (\i,#1+0.7*\b) -- (\i+1,#1+0.7*\b);
+    \xdef\prev{\b}%
+  }
+}
 \begin{document}
 
 \titlepage
@@ -246,17 +257,18 @@
 \begin{frame}{Where Digital Processing Dominates}
   \begin{table}
   \centering\small\striped
-  \begin{tabular}{@{}lR{.68\textwidth}@{}}
+  \begin{tabular}{@{}lR{.34\textwidth}R{.34\textwidth}@{}}
     \toprule
-    \textbf{Domain} & \textbf{Digital pipeline} \\
+    \textbf{Domain} & \textbf{ADC stage $\rightarrow$ processing} & \textbf{DAC stage} \\
     \midrule
-    Audio   & ADC, filtering, noise suppression, codec (AAC, Opus, LC3), transport, decode, DAC \\
-    Video   & Sensor readout, image signal processing, H.264 / HEVC / AV1 encoding in hardware blocks \\
-    Imaging & CMOS sensor, ISP, JPEG or video codec \\
-    Sensing and control & MCU with built-in ADC; filtering, calibration, decisions and communication in software \\
+    Audio   & Microphone ADC; filtering, noise suppression, codec (AAC, Opus, LC3) & Decode, convert back to analog at the speaker \\
+    Video   & Sensor readout (ADC); image signal processing, H.264 / HEVC / AV1 encoding & Display driving \\
+    Imaging & CMOS sensor and converters; ISP, JPEG or video codec & Only when shown on a screen; output is usually a file \\
+    Sensing and control & MCU with built-in ADC; filtering, calibration, decisions, communication & Drives an actuator, or absent if the output is a digital message \\
     \bottomrule
   \end{tabular}
   \end{table}
+  Each row is the pipeline of Fig.~1.2, with the stages that are small or missing noted.
 \end{frame}
 
 \begin{frame}{A Digital System for Analog Signals}
@@ -315,7 +327,13 @@
 
 \begin{frame}{Timing Diagrams}
   \centering
-  \includegraphics[height=.5\textheight]{exrajahmasa}
+  \begin{tikzpicture}[font=\sffamily\scriptsize, x=.9cm, y=.75cm]
+    \foreach \i in {0,...,9} \draw[gray!50, dashed] (\i,0.3) -- (\i,4.5);
+    \wave{3.6}{$A$}{0,1,1,0,0,1,1,1,0}
+    \wave{2.4}{$B$}{0,0,0,0,1,1,1,0,0}
+    \wave{1.2}{$C$}{0,0,1,1,1,1,0,0,0}
+    \wave{0.0}{$F$}{0,1,1,0,1,1,1,1,0}
+  \end{tikzpicture}
   \begin{itemize}
     \item A timing diagram plots logic values against \alert{time}, for one or more signals.
     \item HIGH and LOW are drawn as straight lines; transitions as vertical lines.

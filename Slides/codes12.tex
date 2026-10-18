@@ -321,7 +321,7 @@
   \begin{column}{.48\textwidth}
     \begin{itemize}\small\itemsep3pt
       \item Four flip-flops could hold 16 states, but this counter uses only ten.
-      \item The longest path is one AND gate plus one flip-flop: $f_{\max} \le 1/(t_g + t_f)$: the delay does not grow with the number of stages (very wide counters need larger AND gates or a gate tree).
+      \item The longest path is one AND gate plus one flip-flop: $f_{\max} \le 1/(t_g + t_f)$: the delay does not accumulate stage by stage. The MSB AND gate widens with $n$ and becomes a gate tree, so the delay grows only with $\log n$.
     \end{itemize}
     \begin{block}{Example: $t_f = 12$ ns, $t_g = 5$ ns}
       \small $f_{\max} \le 1/17\ \text{ns} \approx 58.8$ MHz, about $2.8\times$ the ripple counter's 20.8 MHz.

@@ -186,12 +186,13 @@
 
 \begin{frame}{The Design Procedure}
   \centering
-  \includegraphics[width=.75\textwidth]{combinational_synthesis}
+  \includegraphics[width=.6\textwidth]{combinational_synthesis}
   \begin{enumerate}\small\itemsep2pt
     \item \alert{Specify}: identify the inputs and outputs and the relationship between them.
     \item \alert{Truth table}: describe that relationship for every input combination.
     \item \alert{Minimise}: derive a simplified SOP for each output (K-map or Boolean algebra).
-    \item \alert{Implement} with gates and \alert{verify} in simulation.
+    \item \alert{Implement}: choose gates and draw the schematic.
+    \item \alert{Verify}: simulate and check every input combination against the truth table. Not optional: the arithmetic of steps 3 and 4 is easy to get wrong.
   \end{enumerate}
 \end{frame}
 
@@ -470,7 +471,7 @@
   \begin{column}{.48\textwidth}
     \begin{itemize}\small\itemsep3pt
       \item \alert{Active-low} signals reduce errors in noisy environments and are used for control signals between chips.
-      \item Notation: $\overline{RESET}$, \textit{RESETn}, \textit{RESET*}.
+      \item Notation: $\overline{RESET}$, \textit{RESET\_n}, \textit{RESET*}.
       \item Dual-meaning names: \textit{READ}/$\overline{\textit{WRITE}}$, \textit{M}/$\overline{IO}$ (high / low meanings).
     \end{itemize}
   \end{column}

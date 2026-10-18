@@ -162,6 +162,7 @@
       \item Design a half adder and a full adder at gate level.
       \item Compose full adders into a ripple-carry adder of any width.
       \item Convert an adder into a subtractor using two's complement.
+      \item Detect signed overflow in two's complement addition.
       \item Explain how carry look-ahead shortens the carry chain.
       \item Design a magnitude comparator.
     \end{enumerate}}
@@ -244,13 +245,44 @@
 \begin{frame}{Overflow in Two's Complement}
   \begin{itemize}\small\itemsep4pt
     \item Unsigned: a carry out of the MSB signals overflow.
-    \item Signed: the carry out can be 1 with no overflow, and overflow can occur with carry out 0.
-    \item Signed overflow occurs only when two operands of the \alert{same sign} give a result of the \alert{opposite sign}. Opposite-sign operands never overflow.
-    \item Equivalently: the carry \emph{into} the sign bit differs from the carry \emph{out of} it, $V = C_{n-1} \oplus C_n$.
+    \item Signed: the MSB is a sign, not a magnitude. Carry out can be 1 with no overflow, and overflow can occur with carry out 0.
+    \item Overflow means the true result lies outside $-2^{n-1}$ to $+(2^{n-1}-1)$.
+    \item It occurs only when two operands of the \alert{same sign} give a result of the \alert{opposite sign}. Opposite-sign operands never overflow: the true result lies between them.
   \end{itemize}
-  \begin{block}{Example}
-    $0101 + 0100 = 1001$: $+5$ plus $+4$ reads as $-7$.
-  \end{block}
+  \centering\small\striped
+  \begin{tabular}{@{}llrrl@{}}
+    \toprule
+    \textbf{Operands} & \textbf{Sum} & \textbf{Reads as} & \textbf{True} & \textbf{Verdict} \\
+    \midrule
+    $0101 + 0100$ & $1001$ & $-7$ & $+9$ & Overflow: $+,+\to -$ \\
+    $1110 + 1101$ & $1\,1011$ & $-5$ & $-5$ & Valid, though carry out is 1 \\
+    $0011 + 0100$ & $0111$ & $+7$ & $+7$ & Valid \\
+    $1000 + 1111$ & $1\,0111$ & $+7$ & $-9$ & Overflow: $-,-\to +$ \\
+    \bottomrule
+  \end{tabular}
+\end{frame}
+
+\begin{frame}{Detecting Overflow in Hardware}
+  \begin{itemize}\small\itemsep4pt
+    \item Let $c_{n-1}$ be the carry \emph{into} the sign bit and $c_n$ the carry \emph{out of} it.
+    \item Overflow occurs exactly when they differ:
+  \end{itemize}
+  \[ V = c_{n-1} \oplus c_n \]
+  \centering\small\striped
+  \begin{tabular}{@{}lcccc@{}}
+    \toprule
+    & $c_{n-1}$ & $c_n$ & $V$ & Result \\
+    \midrule
+    $0101 + 0100$ & 1 & 0 & 1 & Overflow \\
+    $1110 + 1101$ & 1 & 1 & 0 & Valid \\
+    $0011 + 0100$ & 0 & 0 & 0 & Valid \\
+    $1000 + 1111$ & 0 & 1 & 1 & Overflow \\
+    \bottomrule
+  \end{tabular}
+  \begin{itemize}\small\itemsep4pt
+    \item Both carries already exist in the adder: detection costs \alert{one XOR gate}.
+    \item Processors keep separate flags: $C$ for unsigned, $V$ for signed. The same adder computes both.
+  \end{itemize}
 \end{frame}
 
 \begin{frame}{Binary Subtraction}
@@ -670,6 +702,7 @@
   \begin{itemize}\itemsep3pt\small
     \item A \alert{half adder} adds two bits; a \alert{full adder} also takes a carry-in. Full adders chain into an $n$-bit \alert{ripple-carry adder}.
     \item Ripple-carry delay grows linearly with $n$; \alert{carry look-ahead} shortens the carry chain with generate and propagate signals.
+    \item \alert{Signed overflow}: $V = c_{n-1} \oplus c_n$. Carry out alone is not an overflow indicator for two's complement.
     \item \alert{Two's-complement subtraction}: add the inverted operand with carry-in 1, so one adder does both.
     \item A \alert{magnitude comparator} gives $A<B$, $A=B$, $A>B$ by comparing from the most significant end.
     \item Parity bits detect single-bit errors but cannot correct them.

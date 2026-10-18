@@ -1,6 +1,6 @@
 # CoDES: Contemporary Digital Electronic Systems
 
-Lecture slides for *Contemporary Digital Electronic Systems* (Fourth Edition, 2026) by Mun'im Zabidi and Ab al-Hadi Ab Rahman, the learning module for **SKEE1233** at Universiti Teknologi Malaysia.
+Lecture slides for *Contemporary Digital Electronic Systems* (Fourth Edition, 2026; slides track Release E4b, the corrected reprint) by Mun'im Zabidi and Ab al-Hadi Ab Rahman, the learning module for **SKEE1233** at Universiti Teknologi Malaysia.
 
 ## About the book
 
@@ -34,20 +34,20 @@ A table-of-contents slide marks the start of each section. Exercises are not inc
 | Deck | Chapter | Pages |
 |---|---|---|
 | `codes01` | Introduction | 24 |
-| `codes02` | Number Systems I | 29 |
+| `codes02` | Number Systems I | 31 |
 | `codes03` | Number Systems II | 30 |
 | `codes04` | Logic Gates | 40 |
 | `codes05` | Boolean Algebra | 34 |
-| `codes06` | Karnaugh Maps | 30 |
+| `codes06` | Karnaugh Maps | 32 |
 | `codes07` | Combinational Logic Design | 29 |
 | `codes08` | Standard Combinational Modules | 34 |
-| `codes09` | Arithmetic Circuits | 36 |
+| `codes09` | Arithmetic Circuits | 37 |
 | `codes10` | Latches and Flip-Flops | 38 |
 | `codes11` | Registers and Shift Registers | 31 |
 | `codes12` | Counters | 24 |
 | `codes13` | Finite State Machines | 32 |
 | `codes14` | FSM Analysis | 21 |
-| `codes15` | FSM Controllers | 34 |
+| `codes15` | FSM Controllers | 35 |
 | `codes16` | First Steps in Verilog | 32 |
 
 The slides use the Flux Beamer theme (hunter-green variant) at 16:9, Roboto font, with the UTM logo.

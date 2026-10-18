@@ -155,7 +155,7 @@
 \begin{frame}{Why This Chapter Matters}
   \begin{columns}[c]
   \begin{column}{.47\textwidth}
-    A flip-flop stores one bit. In practice we store, move and transform groups of bits: a 32-bit word, a 16-bit instruction, a stream of serial data. Grouping flip-flops into \alert{registers}, and especially \alert{shift registers}, gives building blocks for serial links, pipelines and every sequential module that follows.
+    A flip-flop stores one bit. In practice we store, move and transform groups of bits: a 32-bit word, a 16-bit instruction, a stream of serial data. Grouping flip-flops into \alert{registers}, and especially \alert{shift registers}, gives building blocks for serial links, pipelines and every sequential module that follows. Two kinds of counter appear here, shift-register and accumulator counters; flip-flop-based counters follow in Chapter 12.
   \end{column}
   \begin{column}{.51\textwidth}
     \begin{block}{After this chapter, you can:}
@@ -383,7 +383,8 @@
     \begin{itemize}\small\itemsep3pt
       \item Also called twisted-ring or M\"obius counter: feeds the \alert{inverted} last output to the first.
       \item $n$ flip-flops give $2n$ states.
-      \item Only one bit changes per clock.
+      \item Only one bit changes per clock, and each state is easier to decode than a ring counter's.
+      \item Uses $2n$ of $2^n$ states: invalid power-up states form separate loops and do not self-correct without added logic or a reset.
     \end{itemize}
     \centering
     \includegraphics[width=.9\textwidth]{ctr_johnson_sch}

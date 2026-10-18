@@ -187,6 +187,15 @@
   The chapter works the nickel/dime machine (15 cents) in detail.
 \end{frame}
 
+\begin{frame}{Roadmap}
+  \begin{enumerate}\itemsep4pt
+    \item \alert{Vending machine}: multiple inputs and outputs; Moore, then Mealy, then one-hot encoding.
+    \item \alert{Zebra crossing}: adds a timer subsystem that supplies a slower timebase.
+    \item \alert{Traffic light}: reuses the timer idea in a larger controller with four states.
+    \item An \alert{elevator} controller is left as an end-of-chapter exercise.
+  \end{enumerate}
+\end{frame}
+
 %===============================================================================
 \section{Characteristics}
 %===============================================================================
@@ -313,7 +322,7 @@
     $D_0 = Q_1'Q_0'N + Q_0D'N'$\\
     $R = Q_0D + Q_1N + Q_1D$
     \begin{itemize}\small\itemsep3pt
-      \item More literals than the Moore version here, so the implementation is skipped.
+      \item Literals: 20 against the Moore version's 17, mostly in $R$ (six literals, since it depends on the inputs as well as the state). One fewer state, but here that does not pay for the extra output logic, so the implementation is skipped.
     \end{itemize}
   \end{column}
   \end{columns}
@@ -465,7 +474,7 @@
   \end{column}
   \begin{column}{.48\textwidth}
     \begin{itemize}\small\itemsep3pt
-      \item A 1 Hz timing reference (the prescaler of Chapter 11) pulses $Z$ once per second.
+      \item A 1 Hz timing reference (the prescaler of Section 11.4.4) pulses $Z$ once per second. At 50 MHz it counts down from 49,999,999.
       \item A 5-bit down-counter with load and enable counts seconds; loaded with 4 or 24 when $T_5$ or $T_{25}$ arrives.
       \item Loading $n$ gives an $(n+1)$-second delay, because \textit{TC} is seen on the clock after the count reaches 0.
     \end{itemize}

@@ -176,11 +176,11 @@
   \leavevmode\vspace{4mm}
   \begin{center}
   \fbox{\parbox{.78\textwidth}{\centering\vspace{2mm}
-  \large What happens if a flip-flop's data input changes \alert{exactly} at the sampling clock edge?
+  \large For how long before and after the active clock edge must a flip-flop's data stay still? And what limits how fast you may run the clock?
   \vspace{2mm}}}
   \end{center}
   \vspace{4mm}
-  The answer is one of the few places where real hardware admits uncertainty. We return to it with setup and hold times.
+  We answer both with setup and hold times and the maximum clock frequency.
 \end{frame}
 
 \begin{frame}{Sequential Circuit = Logic + State}
@@ -595,8 +595,11 @@
 \end{frame}
 
 \begin{frame}{Back to the Opening Question}
-  \begin{block}{Data changing at the clock edge}
-    \small If $D$ changes inside the setup--hold window around the edge, the flip-flop cannot be relied on to capture the old or the new value: the sampled output is unreliable. Designs must keep inputs stable for $t_{SU}$ before and $t_H$ after every active edge.
+  \begin{block}{Setup and hold}
+    \small Data must be stable for $t_{SU}$ \emph{before} and $t_H$ \emph{after} every active edge. Inside that window the captured value cannot be relied on.
+  \end{block}
+  \begin{block}{Limit on the clock}
+    \small Between two edges the signal must leave a flip-flop ($t_{CO}$), cross the logic ($t_{CPD}$) and meet setup at the next one ($t_{SU}$): $f_{\max} = 1/(t_{CO} + t_{CPD} + t_{SU})$.
   \end{block}
 \end{frame}
 
@@ -612,6 +615,7 @@
   \begin{column}{.48\textwidth}
     \begin{itemize}\small\itemsep3pt
       \item The JK flip-flop can be turned into any other type.
+      \item A JK flip-flop is not a drop-in replacement for an SR latch: it is edge-triggered, the latch level-sensitive, so substitution changes \emph{when} the circuit reacts.
       \item Modern designs favour D flip-flops; convert a D flip-flop with the target's characteristic equation:
     \end{itemize}
     \small

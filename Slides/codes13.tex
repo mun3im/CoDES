@@ -249,7 +249,7 @@
     \begin{itemize}\small\itemsep3pt
       \item \alert{States}: circles, one per state time.
       \item \alert{State names}: symbolic ($s_0$, \textit{idle}, \textit{ready}).
-      \item \alert{Arrows}: transitions, labelled with input values; each state has an exit for every input value.
+      \item \alert{Arrows}: transitions, labelled with input values; a state has an exit for every input combination: $2^n$ arrows for $n$ inputs. For larger $n$, arrows carry Boolean conditions (Chapter 15).
       \item \alert{Outputs}: Moore, inside the state; Mealy, after a ``/'' on the arrow.
     \end{itemize}
   \end{column}
@@ -310,7 +310,7 @@
     \midrule
     Binary & $\lceil\log_2 6\rceil = 3$ & 2 unused patterns \\
     Gray & 3 & Successive codes differ by one bit \\
-    Johnson & $\lceil 6/2\rceil = 3$ & $2k = 6$ states: no unused patterns \\
+    Johnson & $\lceil 6/2\rceil = 3$ & $2k = 6$ states: 000, 001, 011, 111, 110, 100; no unused patterns \\
     One-hot & 6 & Each state is a single flip-flop \\
     \bottomrule
   \end{tabular}
@@ -360,7 +360,7 @@
   \centering
   \includegraphics[width=.45\textwidth]{level2pulseblock}
   \begin{itemize}\small
-    \item Human inputs are asynchronous: pass them through two series D flip-flops (a synchroniser), or the edge may fall inside setup/hold and the circuit can fail.
+    \item Human inputs are asynchronous: pass them through two series D flip-flops (a synchroniser), or the edge may fall inside setup/hold, the circuit captures an unpredictable value and fails.
   \end{itemize}
 \end{frame}
 
