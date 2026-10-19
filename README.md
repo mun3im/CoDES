@@ -20,7 +20,7 @@ Every chapter opens with a motivation, measurable learning outcomes and a guidin
 
 ## About the slides
 
-The `Slides/` folder holds one Beamer deck per chapter for all sixteen chapters (`codes01` to `codes16`).
+The `Slides/` folder holds the compiled PDF of one Beamer deck per chapter (sources are in `src/`) for all sixteen chapters (`codes01` to `codes16`).
 
 Each deck follows the same pattern:
 
@@ -55,25 +55,25 @@ The slides use the Flux Beamer theme (hunter-green variant) at 16:9, Roboto font
 ## Repository layout
 
 ```
-Slides/
+Slides/                         compiled slides, codes01.pdf ... codes16.pdf
+src/
   codes01.tex ... codes16.tex   slide sources
-  codes01.pdf ... codes16.pdf   compiled slides
   styles/                       Flux theme files (hunter-green style added)
-  assets/                       UTM logo
-fig/                            figures used by the slides
+  assets/                       UTM logo and all figures
+  Makefile                      builds every deck and copies the PDFs to ../Slides
 ```
 
 ## Building the slides
 
-Run `pdflatex` twice from inside `Slides/` (the second pass fills in the table of contents):
+From `src/`, run `make` to build all sixteen decks (each is compiled twice, the second pass fills in the table of contents). The PDFs are copied to `Slides/`. To build one deck by hand:
 
 ```
-cd Slides
+cd src
 pdflatex codes01
 pdflatex codes01
 ```
 
-You need a TeX distribution with the `beamer`, `roboto`, `tikz`, `listings` (with its Verilog language definition), `booktabs`, `makecell` and `colortbl` packages. Figures are read from `../fig/` through `\graphicspath`.
+You need a TeX distribution with the `beamer`, `roboto`, `tikz`, `listings` (with its Verilog language definition), `booktabs`, `makecell` and `colortbl` packages. Figures are read from `src/assets/` through `\graphicspath`.
 
 ## License
 
