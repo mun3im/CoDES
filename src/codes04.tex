@@ -139,7 +139,7 @@
 \institute{\color{primary}Faculty of Electrical Engineering, Universiti Teknologi Malaysia}
 \date{\today}
 \titlegraphic{assets/logoutmwhite.png}
-\graphicspath{{.}{assets/}}
+\graphicspath{{.}{../fig/}}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 % Gate frame: title, symbol file, Boolean expression, truth-table rows, description
@@ -272,15 +272,34 @@
 \end{frame}
 
 \begin{frame}{Switch Models of the Basic Gates}
-  \centering
-  \includegraphics[height=.2\textheight]{switch_AND}\hspace{6mm}
-  \includegraphics[height=.2\textheight]{switch_OR}\hspace{6mm}
-  \includegraphics[height=.2\textheight]{switch_NOT}\\[1mm]
-  {\small AND: series \hspace{.12\textwidth} OR: parallel \hspace{.1\textwidth} NOT: switch across the lamp}
-  \begin{itemize}
-    \item Open switch = logic 0; closed switch = logic 1; lamp = output.
-    \item This is why digital circuits are called \alert{switching circuits}.
-  \end{itemize}
+	\begin{columns}[c]
+		\begin{column}{.32\textwidth}
+			\centering
+			\includegraphics[width=\linewidth,height=.3\textheight,keepaspectratio]{switch_AND}
+
+			\small AND: series
+		\end{column}
+
+		\begin{column}{.32\textwidth}
+			\centering
+			\includegraphics[width=\linewidth,height=.3\textheight,keepaspectratio]{switch_OR}
+
+			\small OR: parallel
+		\end{column}
+
+		\begin{column}{.32\textwidth}
+			\centering
+			\includegraphics[width=\linewidth,height=.3\textheight,keepaspectratio]{switch_NOT}
+
+			\small NOT: switch across the lamp
+		\end{column}
+	\end{columns}
+
+	\vspace{3mm}
+	\begin{itemize}
+		\item Open switch = logic 0; closed switch = logic 1; lamp = output.
+		\item This is why digital circuits are called \alert{switching circuits}.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}{Timing Diagram of a Gate}
@@ -383,10 +402,21 @@
 \end{frame}
 
 \begin{frame}{Equivalent Forms of NAND and NOR}
-  \centering
-  \includegraphics[height=.25\textheight]{equiv_NAND}\hspace{8mm}
-  \includegraphics[height=.25\textheight]{equiv_NOR}\\[3mm]
-  {\small NAND = AND + NOT \hspace{.15\textwidth} NOR = OR + NOT}
+	\begin{columns}[c]
+		\begin{column}{.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth,height=.25\textheight,keepaspectratio]{equiv_NAND}
+
+			\small NAND = AND + NOT
+		\end{column}
+
+		\begin{column}{.48\textwidth}
+			\centering
+			\includegraphics[width=\linewidth,height=.25\textheight,keepaspectratio]{equiv_NOR}
+
+			\small NOR = OR + NOT
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \gateframe{XOR Gate}{ANSI_XOR}{\overline{A}B + A\overline{B} = A \oplus B}
@@ -445,8 +475,9 @@
       \item Several devices can share one line (a bus) if \alert{only one drives it at a time}.
       \item Variants: inverting, and active-low enable $\overline{EN}$.
     \end{itemize}
+    \vspace{2em}
     \centering
-    \includegraphics[height=.2\textheight]{tristateequiv}
+    \includegraphics[width=.8\textwidth]{tristateequiv}
   \end{column}
   \end{columns}
 \end{frame}
@@ -470,7 +501,7 @@
     \scriptsize\begin{tabular}{cc|c}\toprule $\overline{EN}$ & $A$ & $F$ \\ \midrule 0 & 0 & 1 \\ 0 & 1 & 0 \\ 1 & X & Hi-Z \\ \bottomrule\end{tabular}
   \end{column}
   \end{columns}
-  \vspace{2mm}
+  \vspace{2em}
   {\small Each gives signal isolation and controlled drive in a different configuration.}
 \end{frame}
 

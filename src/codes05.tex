@@ -139,7 +139,7 @@
 \institute{\color{primary}Faculty of Electrical Engineering, Universiti Teknologi Malaysia}
 \date{\today}
 \titlegraphic{assets/logoutmwhite.png}
-\graphicspath{{.}{assets/}}
+\graphicspath{{.}{../fig/}}
 %~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 \begin{document}
@@ -186,8 +186,8 @@
 %===============================================================================
 
 \begin{frame}{Boolean Theorems T1--T14}
-  \centering\scriptsize\striped
-  \begin{tabular}{@{}rllll@{}}
+  \centering\striped
+  \begin{tabular}{@{}rlccc@{}}
     \toprule
     & \textbf{Theorem} & \textbf{AND form} & \textbf{OR form} \\
     \midrule
@@ -211,8 +211,8 @@
 
 \begin{frame}{Commutative Law (T6)}
   \centering
-  \includegraphics[height=.28\textheight]{boolean-commutative-and}\hspace{8mm}
-  \includegraphics[height=.28\textheight]{boolean-commutative-or}\\[2mm]
+  \includegraphics[height=.38\textheight]{boolean-commutative-and}\hspace{8mm}
+  \includegraphics[height=.38\textheight]{boolean-commutative-or}\\[2mm]
   {\small AND \hspace{.3\textwidth} OR}
   \begin{itemize}
     \item Exchanging the inputs of an AND or OR does not change the output: $AB = BA$, $A+B = B+A$.
@@ -271,14 +271,17 @@
     \end{block}
     \begin{itemize}\small\itemsep2pt
       \item Break the long bar; the operation under the break \alert{changes} (AND to OR, OR to AND).
-      \item Valid for any number of variables.
     \end{itemize}
   \end{column}
   \begin{column}{.48\textwidth}
     \centering
-    \includegraphics[width=\textwidth]{demorgan}
+    \includegraphics[width=.8\textwidth]{demorgan}
   \end{column}
   \end{columns}
+  \vspace{3em}
+    \begin{itemize}\small\itemsep2pt
+	\item Valid for any number of variables.
+\end{itemize}
   \small
   \[ \overline{ABC} = \overline{A} + \overline{B} + \overline{C} \qquad \overline{A+BC} = \overline{A}\,(\overline{B} + \overline{C}) \]
 \end{frame}
@@ -342,7 +345,7 @@
 
 \begin{frame}{Expression to Circuit}
   \begin{columns}[c]
-  \begin{column}{.5\textwidth}
+  \begin{column}{.4\textwidth}
     \small
     $F = A\overline{B}C + \overline{A}B + ABC + \overline{A}C$
     \begin{itemize}\itemsep2pt
@@ -351,7 +354,7 @@
       \item Gate inputs: $10 + 4 = 14$ (excluding inverters).
     \end{itemize}
   \end{column}
-  \begin{column}{.48\textwidth}
+  \begin{column}{.58\textwidth}
     \centering
     \includegraphics[width=\textwidth]{boolean-firstnet}
   \end{column}
@@ -362,11 +365,11 @@
 
 \begin{frame}{Circuit to Expression}
   \begin{columns}[c]
-  \begin{column}{.42\textwidth}
+  \begin{column}{.6\textwidth}
     \centering
     \includegraphics[width=\textwidth]{boolean-secondnet}
   \end{column}
-  \begin{column}{.56\textwidth}
+  \begin{column}{.36\textwidth}
     \begin{enumerate}\small\itemsep2pt
       \item Name all gate inputs.
       \item Write each gate's expression at its output, left to right.
@@ -432,7 +435,7 @@
     \end{itemize}
   \end{column}
   \begin{column}{.48\textwidth}
-    \centering\scriptsize\striped
+    \centering\small\striped
     \begin{tabular}{@{}ccc|ll@{}}
       \toprule
       $A$ & $B$ & $C$ & Minterm & Maxterm \\
@@ -612,7 +615,7 @@
 %===============================================================================
 
 \begin{frame}{Simplification Procedure}
-  \centering\small\striped
+  \centering\striped
   \begin{tabular}{@{}cR{.2\textwidth}ll@{}}
     \toprule
     \textbf{Step} & \textbf{Action} & \textbf{Before} & \textbf{After} \\
